@@ -1,8 +1,8 @@
 const MainMenus = [
     {
         slug: 'all_recipes',
-        icon: 'inbox',
-        name: 'All recipes',
+        icon: 'meetings',
+        name: 'All Meetings',
         type: 'menu'
     },
     {
@@ -58,7 +58,7 @@ const Keys = {
 };
 
 const App = {
-    name: 'Birds Kitchen',
+    name: 'officeJournal',
     folderName: 'birdskitchen',
     backupFolderName: 'backups',
     dbName: 'birdskitchen.db'

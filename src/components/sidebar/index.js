@@ -75,7 +75,7 @@ class SidebarNotExtended extends React.Component {
                 <div className='header'>
                     <div onClick={() => this.setState({ recipeModalVisible: true })}
                          className='new-recipe-container'>
-                        <div className='text'>{ t( 'New recipe' ) }</div>
+                        <div className='text'>{ t( 'New Meeting' ) }</div>
                         <div className='plus'>+</div>
                     </div>
 
@@ -159,12 +159,12 @@ class SidebarNotExtended extends React.Component {
                     </div>
                 </div>
                 <input type='checkbox' className='accordion__checkbox' id='accordion-categories' />
-                <label className='sidebar-title accordion__heading' htmlFor='accordion-categories'>{ t( 'Categories' ) }</label>
+                <label className='sidebar-title accordion__heading' htmlFor='accordion-categories'>{ t( 'Comittees' ) }</label>
                 <div className='categories-wrapper accordion'>
                     <div className='categories-container accordion__content'>
                         {
                             0 === categories.length ?
-                                <div className='no-item-text'>{ t( 'There isn\'t any category yet' ) }</div>
+                                <div className='no-item-text'>{ t( 'There isn\'t any categorized comittee yet' ) }</div>
                                 : (
                                     <ul className='menu-list'>
                                         {
@@ -178,7 +178,7 @@ class SidebarNotExtended extends React.Component {
                                                     <li key={index} onClick={() => this.setSelectedMenu( value, 'category' )}
                                                         className={containerClassName}>
                                                         <div className='icon-container'>
-                                                            <SvgIcon name={'meal'}/>
+                                                            <SvgIcon name={'servings'}/>
                                                         </div>
                                                         <div className='others-container'>
                                                             <div className='text-container'>{value.charAt( 0 ).toUpperCase() + value.slice( 1 )}</div>

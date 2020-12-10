@@ -11,7 +11,7 @@ import { ReduxHelpers } from '../../core/helpers';
 import { SET_SEARCH_QUERY } from '../../redux/actions/searchActions';
 import { MainMenus, SearchResult } from '../../core/constants';
 import SettingsModal from '../settings-modal';
-import UnitConverter from '../unit-converter';
+//import UnitConverter from '../unit-converter';
 
 import './style.scss';
 
@@ -21,9 +21,9 @@ class TopMenuNotExtended extends Component {
 	constructor(props) {
 		super(props);
 		this.handleSidebarClick = this.handleSidebarClick.bind(this);
-		this.handleUnitConverterClick = this.handleUnitConverterClick.bind(
-			this
-		);
+		// this.handleUnitConverterClick = this.handleUnitConverterClick.bind(
+		// 	this
+		// );
 	}
 
 	handleSidebarClick() {
@@ -31,12 +31,12 @@ class TopMenuNotExtended extends Component {
 		sidebar.classList.toggle('hidden');
 	}
 
-	handleUnitConverterClick() {
-		const unitConverter = document.querySelector(
-			'.comp_unit-converter-modal'
-		);
-		unitConverter.classList.toggle('visible');
-	}
+	// handleUnitConverterClick() {
+	// 	const unitConverter = document.querySelector(
+	// 		'.comp_unit-converter-modal'
+	// 	);
+	// 	unitConverter.classList.toggle('visible');
+	// }
 
 	closeNotification() {
 		const notification = document.querySelector('#notification');
@@ -49,7 +49,7 @@ class TopMenuNotExtended extends Component {
 
 	state = {
 		maximize: false,
-		showUnitConverter: false,
+		//showUnitConverter: false,
 		showSettingsModal: false,
 		settingsSelectedTab: 'storage',
 		isWindows: 'win32' === process.platform,
@@ -65,9 +65,9 @@ class TopMenuNotExtended extends Component {
 		Mousetrap.bind(['ctrl+b', 'command+b'], () =>
 			this.handleSidebarClick()
 		);
-		Mousetrap.bind(['ctrl+u', 'command+u'], () =>
-			this.handleUnitConverterClick()
-		);
+		// Mousetrap.bind(['ctrl+u', 'command+u'], () =>
+		// 	this.handleUnitConverterClick()
+		// );
 
 		ipcRenderer.on('appMenu', (event, args) => {
 			if ('preferences' === args.type) {
@@ -144,7 +144,7 @@ class TopMenuNotExtended extends Component {
 	render() {
 		const {
 			maximize,
-			showUnitConverter,
+			//showUnitConverter,
 			showSettingsModal,
 			isWindows,
 			settingsSelectedTab,
@@ -172,10 +172,10 @@ class TopMenuNotExtended extends Component {
 						</button>
 					</div>
 				</div>
-				<UnitConverter
+				{/* <UnitConverter
 					show={showUnitConverter}
 					onClose={() => this.setState({ showUnitConverter: false })}
-				/>
+				/> */}
 				<SettingsModal
 					show={showSettingsModal}
 					selectedTab={settingsSelectedTab}
@@ -200,17 +200,17 @@ class TopMenuNotExtended extends Component {
 					<span className="sidebar" onClick={this.handleSidebarClick}>
 						<SvgIcon name="sidebar" />
 					</span>
-					<span
+					{/* <span
 						className="calculator"
 						onClick={this.handleUnitConverterClick}
 					>
 						<SvgIcon name="calculator" />
-					</span>
+					</span> */}
 					<div className="content-header-divider"></div>
 					<span className="applogo">
 						<SvgIcon name="logo" />
 					</span>
-					<span className="appname">Birds Kitchen</span>
+					<span className="appname">OfficeJournal</span>
 				</div>
 
 				<div className="center-side"></div>

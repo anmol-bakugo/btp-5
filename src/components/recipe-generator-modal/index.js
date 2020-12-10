@@ -258,7 +258,7 @@ class RecipeGeneratorModalNotExtended extends React.Component {
                                 <div className='minus' onClick={this.minusQty}><SvgIcon name='minus'/></div>
                             </div>
                             <span><SvgIcon name='ingredients'/></span>
-                            { t( 'Ingredients' ) }
+                            { t( 'MOM' ) }
                             <span className='qty'><SvgIcon name='servings'/> <span id='qtynb'>{item.servings}</span></span>
                         </label>
                         { Parser( this.nToBr( this.state.ingredients ) ) }

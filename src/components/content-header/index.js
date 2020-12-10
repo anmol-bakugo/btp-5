@@ -55,9 +55,9 @@ class ContentHeaderNotExtended extends React.Component {
                         <div className='icon-wrapper' onClick={() => this.changeDisplay( 'imglist' )}>
                             <SvgIcon name='imglist'/>
                         </div>
-                        <div className='icon-wrapper' onClick={() => this.changeDisplay( 'simplelist' )}>
+                        {/* <div className='icon-wrapper' onClick={() => this.changeDisplay( 'simplelist' )}>
                             <SvgIcon name='simplelist'/>
-                        </div>
+                        </div> */}
                         <div className='icon-wrapper' onClick={() => this.changeDisplay( 'grid' )}>
                             <SvgIcon name='grid'/>
                         </div>
