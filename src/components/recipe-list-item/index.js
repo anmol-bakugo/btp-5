@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import _ from 'lodash';
+import _, { transform } from 'lodash';
 import { withTranslation } from 'react-i18next';
 import hoistStatics from 'hoist-non-react-statics';
 
@@ -154,22 +154,26 @@ class RecipeListItemNotExtended extends Component {
 
                 <RecipeGeneratorModal
                     item={item}
-                    show={showGeneratorModal}
+                    show={showGeneratorModal} 
                     onClose={ () => this.setState( { showGeneratorModal: false } ) }
                 />
 
-                <div onClick={ () => this.setState( { showGeneratorModal: true } ) } className='sub-container'>
+                <div onClick={ () => this.setState( { showCrudModal: true } ) } className='sub-container'>
                     <div className='left-side'>
-                        <div className='image-preview'>
+                        {/* <div className='image-preview'>
                             <img src={ StorageHelpers.readImg( item.picName ) } alt=''/>
-                        </div>
+                        </div> */}
+                        {/* Style here for recepie-list-item box */}  
                         <div className='title'>{item.title}</div>
+                        <div className='title'style={{color:"black",'text-transform':'uppercase'}}>{item.categories}</div>
+                        <div className='title'style={{color:"yellow",'text-transform':'uppercase'}}>{item.date_of_meeting}</div>                        
                         <div className='servings'>{item.servings}</div>
                         <div className='difficulty'>{item.difficultylevel}</div>
                         <div className='prep'>{item.prep}</div>
                         <div className='cook'>{item.cook}</div>
                         <div className='rating'>{stars}</div>
                         <div className='favorite'>{favorite}</div>
+                        {console.log(item)}
 
                         <ul className='tags-list'>
                             {

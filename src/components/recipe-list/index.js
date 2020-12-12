@@ -51,7 +51,7 @@ class RecipeListNotExtended extends React.Component {
 
         return (
             <span>
-				<div className='comp_recipe-table'>
+				{/* <div className='comp_recipe-table'>
 					<table id='recipe-table'>
 						<thead className='comp_recipe-table-head'>
 							<tr>
@@ -102,7 +102,7 @@ class RecipeListNotExtended extends React.Component {
 							}
 						</tbody>
 					</table>
-				</div>
+				</div> */}
                 <div className='comp_recipe-list'>
                     {
                         items.map( ( value, index ) => {

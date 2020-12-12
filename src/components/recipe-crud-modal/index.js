@@ -250,39 +250,46 @@ class RecipeCrudModalNotExtended extends React.Component {
                                     onChangeText={difficultylevel => this.setFormValues({ difficultylevel })}
                                 /> */}
                                 <NumberField
-                                    name='servings'
+                                    name='no_attendees'
                                     label={<span><SvgIcon name='servings'/> {t( 'Attendees' )}</span>}
                                     min={1}
                                     step={1}
-                                    value={formValues.servings}
+                                    value={formValues.no_attendees}
                                     errorNumber={errorValues.servings}
-                                    onChangeNumber={servings => this.setFormValues({ servings })}
+                                    onChangeNumber={no_attendees => this.setFormValues({ no_attendees })}
                                 />
                                 <TextField
-                                    name='prep'
+                                    name='date_of_meeting'
                                     label={<span><SvgIcon name='clock'/> {t( 'Date of Meeting' )}</span>}
-                                    value={formValues.prep}
+                                    value={formValues.date_of_meeting}
                                     errorText={errorValues.prep}
-                                    onChangeText={prep => this.setFormValues({ prep })}
+                                    onChangeText={ date_of_meeting=> this.setFormValues({ date_of_meeting })}
                                 />
                                 <TextField
-                                    name='cook'
+                                    name='meet_time'
                                     label={<span><SvgIcon name='clock'/> {t( 'Meet time' )}</span>}
-                                    value={formValues.cook}
+                                    value={formValues.meet_time}
                                     errorText={errorValues.cook}
-                                    onChangeText={cook => this.setFormValues({ cook })}
+                                    onChangeText={meet_time => this.setFormValues({ meet_time })}
                                 />
                             </div>
 
                             <div className='tech-two'>
                                 <ChoiceField
                                     name='categories'
-                                    label={ <span><SvgIcon name='meal'/> { t( 'Comittee' ) }</span> }
+                                    label={ <span><SvgIcon name='meal'/> { t( 'Select from ' ) }</span> }
                                     id={formValues.categories}
                                     value={'undefined' !== typeof formValues.categories ? formValues.categories : ''}
                                     options={categories}
 									placeholder={''}
                                     errorText={errorValues.categories}
+                                    onChangeText={categories => this.setFormValues({ categories })}
+                                />
+                                <TextField
+                                    name='categories'
+                                    label={<span><SvgIcon name='clock'/> {t( 'dropdowm or add new Committee' )}</span>}
+                                    value={formValues.categories}
+                                    errorText={errorValues.cook}
                                     onChangeText={categories => this.setFormValues({ categories })}
                                 />
                                 {/* <div className='comp_fe_choice-field'>

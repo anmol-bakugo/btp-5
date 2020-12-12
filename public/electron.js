@@ -45,6 +45,8 @@ app.on('ready', async () => {
 				: `file://${path.join(__dirname, '../build/index.html')}`
 		)
 		.then((r) => r);
+	
+	mainWindow.webContents.openDevTools();	
 
 	mainWindow.on('resize', () => {
 		let { width, height } = mainWindow.getBounds();

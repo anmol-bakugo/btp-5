@@ -45,7 +45,7 @@ class ContentHeaderNotExtended extends React.Component {
             <div className='comp_content-header'>
                 <div className='left-side'>
                     <div className='title-header'>
-                        <SvgIcon name={icon}/>
+                        {/* <SvgIcon name={icon}/> */}
                         <div className='title'>{ t( title ) }</div>
                     </div>
                     <div className='sub-text'>{ t( itemLengthText ) }</div>

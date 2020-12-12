@@ -257,18 +257,18 @@ class RecipeGeneratorModalNotExtended extends React.Component {
                                 <div className='plus' onClick={this.plusQty}><SvgIcon name='plus'/></div>
                                 <div className='minus' onClick={this.minusQty}><SvgIcon name='minus'/></div>
                             </div>
-                            <span><SvgIcon name='ingredients'/></span>
+                            {/* <span><SvgIcon name='ingredients'/></span> */}
                             { t( 'MOM' ) }
                             <span className='qty'><SvgIcon name='servings'/> <span id='qtynb'>{item.servings}</span></span>
                         </label>
                         { Parser( this.nToBr( this.state.ingredients ) ) }
                     </div>
-                    <div className='directions-wrapper'>
+                    {/* <div className='directions-wrapper'>
                         <label>
                             <span><SvgIcon name='concierge'/></span>{ t( 'Directions' ) }
                         </label>
                         { Parser( this.mdParser.render( item.directions ) ) }
-                    </div>
+                    </div> */}
                 </Modal>
             </div>
         );
