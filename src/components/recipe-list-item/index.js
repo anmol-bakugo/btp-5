@@ -138,7 +138,7 @@ class RecipeListItemNotExtended extends Component {
     };
 
     render() {
-        const { t, item, selectedMenu } = this.props;
+        const { t, item, selectedMenu, committee_list } = this.props;
         const { showCrudModal, showGeneratorModal } = this.state;
         const tags = this.getTags();
         const stars = this.stars();
@@ -149,14 +149,15 @@ class RecipeListItemNotExtended extends Component {
                 <RecipeCrudModal
                     id={item.id}
                     show={showCrudModal}
+                    committee_list = {committee_list}
                     onClose={ () => this.setState( { showCrudModal: false } ) }
                 />
 
-                <RecipeGeneratorModal
+                {/* <RecipeGeneratorModal
                     item={item}
                     show={showGeneratorModal} 
                     onClose={ () => this.setState( { showGeneratorModal: false } ) }
-                />
+                /> */}
 
                 <div onClick={ () => this.setState( { showCrudModal: true } ) } className='sub-container'>
                     <div className='left-side'>
@@ -173,8 +174,7 @@ class RecipeListItemNotExtended extends Component {
                         <div className='cook'>{item.cook}</div>
                         <div className='rating'>{stars}</div>
                         <div className='favorite'>{favorite}</div>
-                        {console.log(item)}
-
+                        
                         <ul className='tags-list'>
                             {
                                 tags.map( ( value, index ) => {

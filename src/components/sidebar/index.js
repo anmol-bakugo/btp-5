@@ -69,6 +69,7 @@ class SidebarNotExtended extends React.Component {
             <div className='comp_sidebar'>
                 <RecipeCrudModal
                     show={recipeModalVisible}
+                    committee_list = {categories}
                     onClose={() => this.setState({ recipeModalVisible: false })}
                 />
 

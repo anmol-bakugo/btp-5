@@ -29,6 +29,13 @@
                 display: flex;
                 align-items: center;
             }
+
+            .tech-three {
+                margin: 30px 0 0;
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+            }
         }
 
         .comp_fe_image-field {
@@ -44,7 +51,7 @@
 
             .comp_fe_textarea-field {
                 box-sizing: border-box;
-                width: 50%;
+                width: 100%;
                 padding-right: 10px;
             }
 

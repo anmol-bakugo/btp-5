@@ -47,7 +47,10 @@ class RecipeListNotExtended extends React.Component {
 	};
 
     render() {
-        const { t, items } = this.props;
+		const { t, items } = this.props;
+		const committee_list = [];
+		
+		items.map((value)=>{committee_list.push(value.categories)});
 
         return (
             <span>
@@ -106,7 +109,7 @@ class RecipeListNotExtended extends React.Component {
                 <div className='comp_recipe-list'>
                     {
                         items.map( ( value, index ) => {
-                            return <RecipeListItem key={ index } item={ value }/>;
+                            return <RecipeListItem key={ index } item={ value } committee_list={committee_list}/>;
                         } )
                     }
                 </div>

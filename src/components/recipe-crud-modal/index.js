@@ -188,9 +188,51 @@ class RecipeCrudModalNotExtended extends React.Component {
     //     console.log( 'click' );
     // };
 
+    attendees_details = () => {
+        
+        // console.log(typeof(this.formValues)+'cool');
+        const input_fields = []
+
+        input_fields.push(
+            <form >
+                <input
+                    type='text'
+                    placeholder='Enter name of attendee_0'
+                    style={{backgroundColor:'#30404d' , color:"white"}}
+                    value = { this.state.formValues.attendee_0}
+                    onChange={(event)=>{ this.setFormValues({'attendee_0':event.target.value})} }
+                />
+            </form>
+        )
+        
+        if(this.state.formValues.no_attendees != 'undefined'){
+            for (let i = 1; i < this.state.formValues.no_attendees; i++) {
+               let attendee_number = 'attendee_'+ (i);
+                input_fields.push(
+                    <form>
+                        <input
+                            type='text'
+                            placeholder = {attendee_number}
+                            style={{backgroundColor:'#30404d' , color:"white"}}
+                            value = {this.state.formValues[attendee_number]}
+                            onChange={(event)=>{this.setFormValues({ [attendee_number]:event.target.value})}}
+                        />
+                    </form>
+                )
+            }
+    
+        }
+
+        return( 
+            <div className='tech-three'>
+                    {input_fields}
+            </div>
+       );
+    }
+
     render() {
         const { formValues, errorValues, autoSuggest } = this.state;
-        const { t, id, show } = this.props;
+        const { t, id, show, committee_list } = this.props;
 		const picsDirectory = StorageHelpers.preference.get( 'storagePath' ) + '/medias';
 		if ( ! fs.existsSync( picsDirectory ) ) {
 			fs.mkdirSync( picsDirectory );
@@ -205,19 +247,8 @@ class RecipeCrudModalNotExtended extends React.Component {
         //     t( 'medium' ),
         //     t( 'difficult' )
         // ];
-        const categories = [
-            t( 'sports' ),
-            t( 'sts' ),
-            t( 'computer' ),
-            t( 'acads' ),
-            t( 'director' ),
-            t( 'lab' ),
-            t( 'electrical' ),
-			t( 'electronics' ),
-            t( 'library' ),
-            t( 'centre' )
-        ];
-
+        const categories = committee_list;
+        
         return (
             <div className='comp_recipe-crud-modal'>
                 <Modal
@@ -273,6 +304,8 @@ class RecipeCrudModalNotExtended extends React.Component {
                                     onChangeText={meet_time => this.setFormValues({ meet_time })}
                                 />
                             </div>
+
+                            {this.attendees_details()}
 
                             <div className='tech-two'>
                                 <ChoiceField
@@ -376,12 +409,12 @@ class RecipeCrudModalNotExtended extends React.Component {
                             onChangeText={ingredients => this.setFormValues({ ingredients })}
                         />
 
-                        <MarkdownField
+                        {/* <MarkdownField
                             name='directions'
                             label={t( 'Directions' )}
                             value={formValues.directions || ''}
                             onChangeText={directions => this.setFormValues({ directions })}
-                        />
+                        /> */}
                     </div>
                 </Modal>
             </div>
