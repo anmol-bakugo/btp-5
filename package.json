@@ -23,6 +23,7 @@
     "markdown-it": "^12.0.2",
     "mathjs": "^8.0.1",
     "moment": "^2.29.1",
+    "node-latex": "^3.0.0",
     "node-sass": "^4.14.1",
     "noty": "^3.2.0-beta",
     "prop-types": "^15.7.2",
@@ -86,9 +87,8 @@
     "url": "https://github.com/fredserva/birdskitchen/issues"
   },
   "author": {
-    "name": "Frédéric Serva",
-    "url": "https://github.com/fredserva",
-    "email": "fred.serva@gmail.com"
+    "name": "Bhanu-Anmol",
+    "email": "prakash.2@iitj.ac.in"
   },
   "links": {
     "project-page": "https://github.com/fredserva/birdskitchen",
@@ -107,6 +107,9 @@
     },
     "files": [
       "build/**/*"
+    ],
+    "extraResources": [
+      "./extraResources/**"
     ],
     "publish": {
       "provider": "github",

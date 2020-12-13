@@ -5,6 +5,10 @@ const { menu } = require('./menu');
 const Store = require('./store.js');
 const { autoUpdater } = require('electron-updater');
 
+const fs = require('fs');
+const readline = require('readline');
+const latex = require('node-latex');
+
 let mainWindow;
 const isWindows = 'win32' === process.platform;
 
@@ -106,3 +110,61 @@ ipcMain.handle(`display-app-menu`, (e, args) => {
 		menu.popup({ window: mainWindow, x: args.x, y: args.y });
 	}
 });
+
+const processLineByLine = async (formValues) =>{
+    sample_text_file_path = (isDev ? './public/Sample_MOM.txt' : path.join(process.resourcesPath,'extraResources','Sample_MOM.txt'));
+    
+    const fileStream = fs.createReadStream(sample_text_file_path);
+    
+    const rl = readline.createInterface({
+        input: fileStream,
+        crlfDelay: Infinity 
+    });
+  
+    lines = ""
+    count = 0;
+    for await (line of rl){
+        count+=1;
+        if(count==40)
+        {
+            if(line.charAt(13)=='{')
+            {
+                console.log(" Got the { in 40 th line");
+                line = line.substring(0,14) + formValues.title + line.substring(14);
+            }
+        }
+  
+        lines+= line+'\n';
+        
+        
+    }
+    
+    fileStream.destroy();
+    return lines;
+};
+
+ipcMain.on("pdftest",(event,formValues)=>{
+	console.log(formValues.title);
+	processLineByLine(formValues).then(lines =>{
+		const pdf = latex(lines)
+		const fileName = formValues.file_path;
+		const output = fs.createWriteStream(fileName);
+		pdf.pipe(output);
+
+		pdf.on('error', err => {
+			console.error(err);
+			event.sender.send("pdftestComplete",err);
+		})
+
+		pdf.on('finish', () => {
+		  console.log('PDF generated!');
+		  // para.innerHTML = "Hurray, pdf generated!";   // to renderer
+		  event.sender.send("pdftestComplete",lines);
+		})
+
+
+		
+		
+    });
+	// write catch in case of error 
+})

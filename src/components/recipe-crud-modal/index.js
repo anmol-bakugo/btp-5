@@ -18,12 +18,20 @@ import '../i18n';
 
 import './style.scss';
 
+const electron = window.require('electron');
+const ipcRenderer = electron.ipcRenderer;
+const {remote} = require('electron');
+const curr_window = remote.getCurrentWindow();
+const dialog = remote.dialog;
+
+
 class RecipeCrudModalNotExtended extends React.Component {
     state = {
 		formValues: {},
 		errorValues: {},
 		autoSuggest: [],
-		isMouseInside: false
+        isMouseInside: false,
+        onprint:0
 	};
 
 	componentDidUpdate( prevProps, prevState, snapshot ) {
@@ -172,6 +180,9 @@ class RecipeCrudModalNotExtended extends React.Component {
                 {/* <span className='crud-calculator' onClick={this.handleUnitConverter}>
                     <SvgIcon name='calculator'/>
                 </span> */}
+                <span onClick={this.OnPrint}>
+                    <SvgIcon name='calculator'/>
+                </span>
                 <span onClick={this.onSubmit}>
                     <SvgIcon name='save'/>
                 </span>
@@ -228,6 +239,35 @@ class RecipeCrudModalNotExtended extends React.Component {
                     {input_fields}
             </div>
        );
+    }
+
+    OnPrint = ()=>{
+        const formValues = this.state.formValues;
+
+        let options = {
+            title: "Save file - MOM as pdf",
+            buttonLabel : "Save pdf File",
+            // filters :[
+            //  {name: 'Images', extensions: ['jpg', 'png', 'gif']},
+            //  {name: 'Movies', extensions: ['mkv', 'avi', 'mp4']},
+            //  {name: 'Custom File Type', extensions: ['as']},
+            //  {name: 'All Files', extensions: ['*']}
+            // ]
+           }
+
+        let filename = dialog.showSaveDialogSync(curr_window, options); 
+        formValues.file_path = filename;
+        console.log(filename);
+        ipcRenderer.send("pdftest",formValues); 
+    }
+
+    componentDidMount(){
+        const onprint = this.state.onprint;
+        ipcRenderer.on("pdftestComplete",(event,lines)=>{
+            const onprint = this.state.onprint;
+            this.setFormValues({'ingredients':lines})
+            console.log("Print event test sussccfeul:");
+        })
     }
 
     render() {
