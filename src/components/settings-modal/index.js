@@ -28,7 +28,7 @@ class SettingsModalNotExtended extends React.Component {
 	componentDidMount() {
 		const dbDirectory = StorageHelpers.preference.get( 'storagePath' );
 		const backupDirectory = StorageHelpers.preference.get( 'backupPath' );
-		const appTheme = StorageHelpers.preference.get( 'appTheme' ) || 'athens';
+		const appTheme = StorageHelpers.preference.get( 'appTheme' ) || 'teal';
 		const appLang = StorageHelpers.preference.get( 'appLang' ) || 'en';
 		i18n.changeLanguage( appLang );
 		this.setState( { dbDirectory, backupDirectory, appTheme, appLang } );

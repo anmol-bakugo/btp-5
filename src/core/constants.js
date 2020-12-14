@@ -59,9 +59,9 @@ const Keys = {
 
 const App = {
     name: 'officeJournal',
-    folderName: 'birdskitchen',
+    folderName: 'officejournal',
     backupFolderName: 'backups',
-    dbName: 'birdskitchen.db'
+    dbName: 'officejournal.db'
 };
 
 export { MainMenus, Keys, SearchResult, TagsResult, CategoriesResult, App };

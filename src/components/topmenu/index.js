@@ -207,16 +207,16 @@ class TopMenuNotExtended extends Component {
 						<SvgIcon name="calculator" />
 					</span> */}
 					<div className="content-header-divider"></div>
-					<span className="applogo">
+					{/* <span className="applogo">
 						<SvgIcon name="logo" />
-					</span>
+					</span> */}
 					<span className="appname">OfficeJournal</span>
 				</div>
 
 				<div className="center-side"></div>
 				<div className="right-side">
 					<SearchField
-						placeholder={t('Search recipe...')}
+						placeholder={t('Search meeting....')}
 						value={query}
 						onChangeText={(text) => this.onChangeText(text)}
 						onClearClick={() => this.onChangeText('')}
