@@ -81,7 +81,13 @@ class RecipeCrudModalNotExtended extends React.Component {
 		if ( ! isTextValid( formValues.title ) ) {
 			errorValues.title = t( 'This field is required!' );
 			isFormValid = false;
-		}
+        }
+        
+		if ( ! isTextValid( formValues.categories ) ) {
+			errorValues.categories = t( 'This field is required!' );
+			isFormValid = false;
+        }
+
 
 		if ( undefined === formValues.ingredients || '' === formValues.ingredients ) {
 		} else {
@@ -362,7 +368,7 @@ class RecipeCrudModalNotExtended extends React.Component {
                                     name='categories'
                                     label={<span><SvgIcon name='clock'/> {t( 'dropdowm or add new Committee' )}</span>}
                                     value={formValues.categories}
-                                    errorText={errorValues.cook}
+                                    errorText={errorValues.categories}
                                     onChangeText={categories => this.setFormValues({ categories })}
                                 />
                                 {/* <div className='comp_fe_choice-field'>
