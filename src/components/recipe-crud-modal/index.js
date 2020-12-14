@@ -480,6 +480,8 @@ const mapDispatchToProps = ( dispatch ) => {
     };
 };
 
+
+
 const RecipeCrudModal = hoistStatics( withTranslation()( RecipeCrudModalNotExtended ), RecipeCrudModalNotExtended );
 
 export default connect( mapStateToProps, mapDispatchToProps )( RecipeCrudModal );

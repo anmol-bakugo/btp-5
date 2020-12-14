@@ -116,14 +116,14 @@
       "releaseType": "release"
     },
     "mac": {
-      "icon": "public/images/app.icns",
+      "icon": "",
       "category": "public.app-category.productivity",
       "target": [
         "zip"
       ]
     },
     "win": {
-      "icon": "public/images/app.ico",
+      "icon": "",
       "target": [
         "nsis"
       ]
@@ -132,7 +132,7 @@
       "category": "Utility",
       "description": "recipe manager",
       "packageCategory": "Utility",
-      "icon": "public/images/logo/birds-kitchen.png",
+      "icon": "",
       "target": [
         "AppImage"
       ]
