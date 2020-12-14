@@ -186,6 +186,9 @@ class RecipeCrudModalNotExtended extends React.Component {
                 {/* <span className='crud-calculator' onClick={this.handleUnitConverter}>
                     <SvgIcon name='calculator'/>
                 </span> */}
+                <span onClick={this.OnLatex}>
+                    <SvgIcon name='print'/>
+                </span>
                 <span onClick={this.OnPrint}>
                     <SvgIcon name='calculator'/>
                 </span>
@@ -249,9 +252,11 @@ class RecipeCrudModalNotExtended extends React.Component {
 
     OnPrint = ()=>{
         const formValues = this.state.formValues;
+        const { t} = this.props;
+        const feather = require( 'feather-icons' );
 
         let options = {
-            title: "Save file - MOM as pdf",
+            title: "Save file - Minutes of Meeting as pdf",
             buttonLabel : "Save pdf File",
             // filters :[
             //  {name: 'Images', extensions: ['jpg', 'png', 'gif']},
@@ -263,16 +268,62 @@ class RecipeCrudModalNotExtended extends React.Component {
 
         let filename = dialog.showSaveDialogSync(curr_window, options); 
         formValues.file_path = filename;
-        console.log(filename);
+        // console.log(filename);
+        NotyHelpers.open( feather.icons.save.toSvg() + t( 'Pdf generating...' ), 'success', 500 );
         ipcRenderer.send("pdftest",formValues); 
     }
 
+    OnLatex = () => {
+        const formValues = this.state.formValues;
+        const { t} = this.props;
+        const feather = require( 'feather-icons' );
+
+        let options = {
+            title: "Save file - Minutes of Meeting as Latex",
+            buttonLabel : "Save Tex File",
+            // filters :[
+            //  {name: 'Images', extensions: ['jpg', 'png', 'gif']},
+            //  {name: 'Movies', extensions: ['mkv', 'avi', 'mp4']},
+            //  {name: 'Custom File Type', extensions: ['as']},
+            //  {name: 'All Files', extensions: ['*']}
+            // ]
+           }
+
+        let filename = dialog.showSaveDialogSync(curr_window, options); 
+        formValues.file_path = filename;
+        // console.log(filename);
+        NotyHelpers.open( feather.icons.save.toSvg() + t( 'Latex generating...' ), 'success', 500 );
+        ipcRenderer.send("generate-latex",formValues); 
+    }
+
     componentDidMount(){
-        const onprint = this.state.onprint;
-        ipcRenderer.on("pdftestComplete",(event,lines)=>{
-            const onprint = this.state.onprint;
-            this.setFormValues({'ingredients':lines})
-            console.log("Print event test sussccfeul:");
+        // const onprint = this.state.onprint;
+        const { t} = this.props;
+        const feather = require( 'feather-icons' );
+        
+        ipcRenderer.on("pdftestComplete",(event,arg1,arg2,arg3)=>{
+            // const onprint = this.state.onprint;
+            // this.setFormValues({'ingredients':lines})
+            // console.log("Print event test sussccfeul:");
+            const {formValues} = this.state;
+            if(arg3===formValues.title){
+                if(arg1 === "error"){
+                    NotyHelpers.open( feather.icons.save.toSvg() + t( 'Pdf generation failed with msg:'+arg2 ), 'error', 1500 );
+                }else{
+                    NotyHelpers.open( feather.icons.save.toSvg() + t( 'Pdf generation successful' ), 'success', 1500 );
+                }
+            }
+        })
+
+        ipcRenderer.on("latex-generated",(event,arg1,arg2,arg3)=>{
+            const {formValues} = this.state;
+            if(arg3===formValues.title){
+                if(arg1==="error"){
+                    NotyHelpers.open( feather.icons.save.toSvg() + t( 'Latex generation failed with msg:'+arg2 ), 'error', 1500 );
+                }else{
+                    NotyHelpers.open( feather.icons.save.toSvg() + t( 'Latex file generation successful' ), 'success', 1500 );
+                }
+            }
         })
     }
 

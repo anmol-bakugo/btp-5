@@ -50,7 +50,7 @@ app.on('ready', async () => {
 		)
 		.then((r) => r);
 	
-	mainWindow.webContents.openDevTools();	
+	// mainWindow.webContents.openDevTools();	
 
 	mainWindow.on('resize', () => {
 		let { width, height } = mainWindow.getBounds();
@@ -153,13 +153,13 @@ ipcMain.on("pdftest",(event,formValues)=>{
 
 		pdf.on('error', err => {
 			console.error(err);
-			event.sender.send("pdftestComplete",err);
+			event.sender.send("pdftestComplete","error",toString(err),formValues.title);
 		})
 
 		pdf.on('finish', () => {
 		  console.log('PDF generated!');
 		  // para.innerHTML = "Hurray, pdf generated!";   // to renderer
-		  event.sender.send("pdftestComplete",lines);
+		  event.sender.send("pdftestComplete","complete","",formValues.title);
 		})
 
 
@@ -167,4 +167,23 @@ ipcMain.on("pdftest",(event,formValues)=>{
 		
     });
 	// write catch in case of error 
+})
+
+ipcMain.on("generate-latex",(event,formValues)=>{
+	processLineByLine(formValues).then(lines =>{
+	
+		const fileName = formValues.file_path;
+		// const output = fs.createWriteStream(fileName);
+		fs.writeFile(fileName,lines,(err)=>{
+
+			if(err){
+				event.sender.send("latex-generated","error",toString(err),formValues.title);	
+			}else{
+				event.sender.send("latex-generated","complete","",formValues.title);
+			}
+			
+		})
+
+		
+    });
 })
