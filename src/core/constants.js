@@ -61,7 +61,7 @@ const App = {
     name: 'officeJournal',
     folderName: 'birdskitchen',
     backupFolderName: 'backups',
-    dbName: 'birdskitchen.db'
+    dbName: 'officejournal.db'
 };
 
 export { MainMenus, Keys, SearchResult, TagsResult, CategoriesResult, App };
