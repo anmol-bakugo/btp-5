@@ -31,7 +31,7 @@ app.on('ready', async () => {
 		center: true,
 		minWidth: 1600 * 0.75,
 		minHeight: 900 * 0.75,
-		icon: `${__dirname}/images/logo/birds-kitchen.png`,
+		// icon: `${__dirname}/images/logo/birds-kitchen.png`,
 		titleBarStyle: 'hidden',
 		autoHideMenuBar: true,
 		frame: !isWindows,

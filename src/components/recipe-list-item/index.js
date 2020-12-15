@@ -38,7 +38,7 @@ class RecipeListItemNotExtended extends Component {
 
         openConfirmDialog({
             title: t( 'Confirmation' ),
-            text: t( 'Do you really want to trash this recipe?' ),
+            text: t( 'Do you really want to trash this meeting?' ),
             buttons: [
                 {
                     label: t( 'Yes' ),
@@ -47,7 +47,7 @@ class RecipeListItemNotExtended extends Component {
                         new Api().updateRecipeItem( item );
                         setRecipeList( selectedMenu );
                         setTags();
-                        NotyHelpers.open( feather.icons.trash.toSvg() + t( 'This recipe has been trashed!' ), 'error', 2000 );
+                        NotyHelpers.open( feather.icons.trash.toSvg() + t( 'This meeting has been trashed!' ), 'error', 2000 );
                     },
                     className: 'btn btn-danger'
                 },
@@ -66,7 +66,7 @@ class RecipeListItemNotExtended extends Component {
 
         openConfirmDialog({
             title: t( 'Confirmation' ),
-            text: t( 'Do you really want to delete this recipe permanently? This process cannot be undone!' ),
+            text: t( 'Do you really want to delete this meeting permanently? This process cannot be undone!' ),
             buttons: [
                 {
                     label: t( 'Yes' ),
@@ -74,7 +74,7 @@ class RecipeListItemNotExtended extends Component {
                         new Api().deleteRecipeById( id );
                         setRecipeList( selectedMenu );
                         setTags();
-                        NotyHelpers.open( feather.icons.zap.toSvg() + t( 'This recipe has been deleted permanently!' ), 'success', 1500 );
+                        NotyHelpers.open( feather.icons.zap.toSvg() + t( 'This meeting has been deleted permanently!' ), 'success', 1500 );
                     },
                     className: 'btn btn-danger'
                 },
@@ -95,7 +95,7 @@ class RecipeListItemNotExtended extends Component {
         new Api().updateRecipeItem( item );
         setRecipeList( selectedMenu );
         setTags();
-        NotyHelpers.open( feather.icons.award.toSvg() + t( 'The recipe has been restored from trash!' ), 'success', 2000 );
+        NotyHelpers.open( feather.icons.award.toSvg() + t( 'The meeting has been restored from trash!' ), 'success', 2000 );
     };
 
     getTags = () => {

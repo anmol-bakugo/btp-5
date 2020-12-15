@@ -20,7 +20,7 @@ class App extends Component {
     }
 
     setTheme = () => {
-        const theme = `${StorageHelpers.preference.get( 'appTheme' ) || 'athens'}-theme`;
+        const theme = `${StorageHelpers.preference.get( 'appTheme' ) || 'teal'}-theme`;
         if ( ! document.body.classList.contains( theme ) ) {
             document.body.classList.add( theme );
         }

@@ -207,9 +207,9 @@ class TopMenuNotExtended extends Component {
 						<SvgIcon name="calculator" />
 					</span> */}
 					<div className="content-header-divider"></div>
-					<span className="applogo">
+					{/* <span className="applogo">
 						<SvgIcon name="logo" />
-					</span>
+					</span> */}
 					<span className="appname">OfficeJournal</span>
 				</div>
 

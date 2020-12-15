@@ -1,8 +1,8 @@
 {
-  "name": "birdskitchen",
-  "appname": "Birds Kitchen",
+  "name": "officejournal",
+  "appname": "Office Journal",
   "version": "0.6.4",
-  "description": "A free and open source recipe manager",
+  "description": "A cross-platform office journal application",
   "private": true,
   "main": "public/electron.js",
   "license": "GPL-3.0 License",
@@ -99,8 +99,8 @@
     "releases": "https://github.com/fredserva/birdskitchen/releases"
   },
   "build": {
-    "appId": "com.birdskitchen.app",
-    "productName": "Birds Kitchen",
+    "appId": "com.officejournal.app",
+    "productName": "Office journal",
     "asar": true,
     "directories": {
       "output": "dist"
@@ -116,23 +116,20 @@
       "releaseType": "release"
     },
     "mac": {
-      "icon": "public/images/app.icns",
       "category": "public.app-category.productivity",
       "target": [
         "zip"
       ]
     },
     "win": {
-      "icon": "public/images/app.ico",
       "target": [
         "nsis"
       ]
     },
     "linux": {
       "category": "Utility",
-      "description": "recipe manager",
+      "description": "office journal",
       "packageCategory": "Utility",
-      "icon": "public/images/logo/birds-kitchen.png",
       "target": [
         "AppImage"
       ]
