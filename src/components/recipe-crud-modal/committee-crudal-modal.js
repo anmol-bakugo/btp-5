@@ -14,7 +14,7 @@ import ApiCommittee from '../../core/api-committee';
 import { ChoiceField, NumberField, TextareaField, TextField, TagsField, MarkdownField, UrlField} from '../form-elements';
 import {isTextValid} from '../../core/utils';
 import SvgIcon from '../svgicon';
-import { NotyHelpers, ReduxHelpers, TagHelpers, StorageHelpers } from '../../core/helpers';
+import { NotyHelpers, ReduxHelpers, TagHelpers, StorageHelpers } from '../../core/helpers-committee';
 import '../i18n';
 
 import './style.scss';
@@ -63,10 +63,10 @@ class CommitteeCrudModalNotExtended extends React.Component {
 	};
 
     onClose = () => {
-		const { onClose, setTags, setRecipeList, selectedMenu } = this.props;
+		const { onClose, setTags, setCommitteeList, selectedMenu } = this.props;
 		this.setState( { formValues: {}, errorValues: {} } );
-		setTags();
-		setRecipeList( selectedMenu );
+		//setTags();
+		setCommitteeList( selectedMenu );
 		onClose && onClose();
     };
 
@@ -84,66 +84,66 @@ class CommitteeCrudModalNotExtended extends React.Component {
 			isFormValid = false;
         }
         
-		if ( ! isTextValid( formValues.categories ) ) {
-			errorValues.categories = t( 'This field is required!' );
-			isFormValid = false;
-        }
+		// if ( ! isTextValid( formValues.categories ) ) {
+		// 	errorValues.categories = t( 'This field is required!' );
+		// 	isFormValid = false;
+        // }
 
 
-		if ( undefined === formValues.ingredients || '' === formValues.ingredients ) {
-		} else {
-			formValues.ingredients = formValues.ingredients.replace( /,/g, '.' );
-			formValues.ingredients = formValues.ingredients.replace( /½/g, '1/2' );
-			formValues.ingredients = formValues.ingredients.replace( /⅓/g, '1/3' );
-			formValues.ingredients = formValues.ingredients.replace( /⅔/g, '2/3' );
-			formValues.ingredients = formValues.ingredients.replace( /¼/g, '1/4' );
-			formValues.ingredients = formValues.ingredients.replace( /¾/g, '3/4' );
-			formValues.ingredients = formValues.ingredients.replace( /⅕/g, '1/5' );
-			formValues.ingredients = formValues.ingredients.replace( /⅖/g, '2/5' );
-			formValues.ingredients = formValues.ingredients.replace( /⅗/g, '3/5' );
-			formValues.ingredients = formValues.ingredients.replace( /⅘/g, '4/5' );
-			formValues.ingredients = formValues.ingredients.replace( /(?: )?(1+)\/(2+)/g, '.5' );
-			formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.5+)/g, '\n0.5' );
-			formValues.ingredients = formValues.ingredients.replace( /(?: )?(1+)\/(3+)/g, '.33' );
-			formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.33+)/g, '\n0.33' );
-			formValues.ingredients = formValues.ingredients.replace( /(?: )?(2+)\/(3+)/g, '.66' );
-			formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.66+)/g, '\n0.66' );
-			formValues.ingredients = formValues.ingredients.replace( /(?: )?(1+)\/(4+)/g, '.25' );
-			formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.25+)/g, '\n0.25' );
-			formValues.ingredients = formValues.ingredients.replace( /(?: )?(3+)\/(4+)/g, '.75' );
-			formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.75+)/g, '\n0.75' );
-			formValues.ingredients = formValues.ingredients.replace( /(?: )?(1+)\/(5+)/g, '.20' );
-			formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.20+)/g, '\n0.20' );
-			formValues.ingredients = formValues.ingredients.replace( /(?: )?(2+)\/(5+)/g, '.40' );
-			formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.40+)/g, '\n0.40' );
-			formValues.ingredients = formValues.ingredients.replace( /(?: )?(3+)\/(5+)/g, '.60' );
-			formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.60+)/g, '\n0.60' );
-			formValues.ingredients = formValues.ingredients.replace( /(?: )?(4+)\/(5+)/g, '.80' );
-			formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.80+)/g, '\n0.80' );
-			formValues.ingredients = formValues.ingredients.replace( /\d+/g, k => Number( k ).toFixed( 0 ) );
-		}
+		// if ( undefined === formValues.ingredients || '' === formValues.ingredients ) {
+		// } else {
+		// 	formValues.ingredients = formValues.ingredients.replace( /,/g, '.' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /½/g, '1/2' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /⅓/g, '1/3' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /⅔/g, '2/3' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /¼/g, '1/4' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /¾/g, '3/4' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /⅕/g, '1/5' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /⅖/g, '2/5' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /⅗/g, '3/5' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /⅘/g, '4/5' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?: )?(1+)\/(2+)/g, '.5' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.5+)/g, '\n0.5' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?: )?(1+)\/(3+)/g, '.33' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.33+)/g, '\n0.33' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?: )?(2+)\/(3+)/g, '.66' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.66+)/g, '\n0.66' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?: )?(1+)\/(4+)/g, '.25' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.25+)/g, '\n0.25' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?: )?(3+)\/(4+)/g, '.75' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.75+)/g, '\n0.75' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?: )?(1+)\/(5+)/g, '.20' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.20+)/g, '\n0.20' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?: )?(2+)\/(5+)/g, '.40' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.40+)/g, '\n0.40' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?: )?(3+)\/(5+)/g, '.60' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.60+)/g, '\n0.60' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?: )?(4+)\/(5+)/g, '.80' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /(?:\n)+(.80+)/g, '\n0.80' );
+		// 	formValues.ingredients = formValues.ingredients.replace( /\d+/g, k => Number( k ).toFixed( 0 ) );
+		// }
 
-		if ( ( formValues.servings > 1 ) && isNaN( formValues.servings ) ) {
-			errorValues.servings = t( 'Not a valid number' );
-			isFormValid = false;
-		} else if ( '' === formValues.servings || 'undefined' === formValues.servings || isNaN( formValues.servings ) ) {
-			formValues.servings = 1;
-		}
+		// if ( ( formValues.servings > 1 ) && isNaN( formValues.servings ) ) {
+		// 	errorValues.servings = t( 'Not a valid number' );
+		// 	isFormValid = false;
+		// } else if ( '' === formValues.servings || 'undefined' === formValues.servings || isNaN( formValues.servings ) ) {
+		// 	formValues.servings = 1;
+		// }
 
-		if ( undefined === formValues.sourceurl || '' === formValues.sourceurl ) {
-		} else {
-			if ( ! regex.test( formValues.sourceurl ) ) {
-				errorValues.sourceurl = t( 'Non-valid URL' );
-				isFormValid = false;
-			}
-		}
+		// if ( undefined === formValues.sourceurl || '' === formValues.sourceurl ) {
+		// } else {
+		// 	if ( ! regex.test( formValues.sourceurl ) ) {
+		// 		errorValues.sourceurl = t( 'Non-valid URL' );
+		// 		isFormValid = false;
+		// 	}
+		// }
 
         if ( isFormValid ) {
             let dataToDb = { ...formValues };
-            dataToDb.tags = dataToDb.tags || '';
-            dataToDb.directions = dataToDb.directions || '';
-            dataToDb.isfavorite = dataToDb.isfavorite || false;
-            dataToDb.isTrash = dataToDb.isTrash || false;
+            //dataToDb.tags = dataToDb.tags || '';
+            //dataToDb.directions = dataToDb.directions || '';
+            //dataToDb.isfavorite = dataToDb.isfavorite || false;
+            //dataToDb.isTrash = dataToDb.isTrash || false;
             dataToDb.id = id || shortid.generate();
 
             if ( undefined === id ) {
@@ -351,7 +351,7 @@ class CommitteeCrudModalNotExtended extends React.Component {
             <div className='comp_recipe-crud-modal'>
                 <Modal
                     show={show}
-                    onClose={this.onClose}
+                    //onClose={this.onClose}
                     title={modalTitle}
                     footerTemplate={this._footer}
                     headerIconsTemplate={this._headerIcons}
@@ -534,7 +534,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = ( dispatch ) => {
     return {
         setTags: () => ReduxHelpers.fillTags( dispatch ),
-        setRecipeList: selectedMenu => ReduxHelpers.fillRecipes( dispatch, selectedMenu )
+        setCommitteeList: selectedMenu => ReduxHelpers.fillCommittees( dispatch, selectedMenu )
     };
 };
 

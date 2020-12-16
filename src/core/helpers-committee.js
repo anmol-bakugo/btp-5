@@ -7,7 +7,7 @@ import moment from 'moment';
 
 import ApiCommittee from './api-committee';
 import {SET_SELECTED_MENU_ITEM, SET_TAGS, SET_CATEGORIES} from '../redux/actions/sidebarActions';
-import {SET_RECIPE_LIST} from '../redux/actions/recipeActions';
+import {SET_Committee_LIST} from '../redux/actions/committeeActions';
 
 import 'noty/src/noty.scss';
 import 'noty/src/themes/sunset.scss';
@@ -30,8 +30,8 @@ const storagePreferences = new Store({
     }
 });
 
-const RecipeHelpers = {
-    organizeRecipes: text => {
+const CommitteeHelpers = {
+    organizeCommittees: text => {
         const result = [];
         const matchedItems = text.match( new RegExp( `\\[s\\s*(.*?)\\s*\\/]`, 'g' ) );
 
@@ -53,7 +53,7 @@ const RecipeHelpers = {
         return result;
     },
 
-    replacedRecipe: ( text, paramsAsObj ) => {
+    replacedCommittee: ( text, paramsAsObj ) => {
         const params = [];
         const matchedItems = text.match( new RegExp( `\\[s\\s*(.*?)\\s*\\/]`, 'g' ) );
         _.forOwn( paramsAsObj, o => params.push( o ) );
@@ -65,7 +65,7 @@ const RecipeHelpers = {
         return text;
     },
 
-    recipeAsHtml: text => {
+    CommitteeAsHtml: text => {
         const matchedItems = text.match( new RegExp( `\\[s\\s*(.*?)\\s*\\/]`, 'g' ) );
 
         _.forEach( matchedItems, ( val ) => {
@@ -75,31 +75,31 @@ const RecipeHelpers = {
         return text;
     },
 
-    getRecipes: ( selectedMenu, query ) => {
+    getCommittees: ( selectedMenu, query ) => {
         let result = [];
         if ( selectedMenu ) {
             const slug = selectedMenu.slug;
 
             if ( 'menu' === selectedMenu.type ) {
                 if ( 'all_recipes' === slug ) {
-                    result = new ApiCommittee().getAllRecipes();
+                    result = new ApiCommittee().getAllCommittees();
                 } else if ( 'favorites' === slug ) {
-                    result = new ApiCommittee().getAllFavoriteRecipes();
+                    result = new ApiCommittee().getAllFavoriteCommittees();
                 } else if ( 'untagged' === slug ) {
-                    result = new ApiCommittee().getAllUntaggedRecipes();
+                    result = new ApiCommittee().getAllUntaggedCommittees();
                 } else if ( 'uncategorized' === slug ) {
-                    result = new ApiCommittee().getAllUncategorizedRecipes();
+                    result = new ApiCommittee().getAllUncategorizedCommittees();
                 } else if ( 'trash' === slug ) {
-                    result = new ApiCommittee().getAllRecipesInTrash();
+                    result = new ApiCommittee().getAllCommitteesInTrash();
                 }
             } else if ( 'search' === selectedMenu.type ) {
-                result = new ApiCommittee().queryRecipe( query.toLowerCase() );
+                result = new ApiCommittee().queryCommittee( query.toLowerCase() );
             } else if ( 'tag' === selectedMenu.type ) {
-                result = new ApiCommittee().getRecipesContainsTag( slug );
+                result = new ApiCommittee().getCommitteesContainsTag( slug );
             } else if ( 'category' === selectedMenu.type ) {
-                result = new ApiCommittee().getRecipesContainsCategory( slug );
+                result = new ApiCommittee().getCommitteesContainsCategory( slug );
             } else {
-                result = new ApiCommittee().getAllRecipes();
+                result = new ApiCommittee().getAllCommittees();
             }
         }
 
@@ -156,9 +156,9 @@ const ReduxHelpers = {
         payload: CategoriesHelpers.getAllItems()
     }),
 
-    fillRecipes: ( dispatch, selectedMenu, query ) => dispatch({
-        type: SET_RECIPE_LIST,
-        payload: RecipeHelpers.getRecipes( selectedMenu, query )
+    fillCommittees: ( dispatch, selectedMenu, query ) => dispatch({
+        type: SET_Committee_LIST,
+        payload: CommitteeHelpers.getCommittees( selectedMenu, query )
     }),
 
     setSelectedMenu: ( dispatch, selectedMenu ) => dispatch({
@@ -301,4 +301,4 @@ const StorageHelpers = {
     }
 };
 
-export {RecipeHelpers, TagHelpers, CategoriesHelpers, ReduxHelpers, NotyHelpers, StorageHelpers};
+export {CommitteeHelpers, TagHelpers, CategoriesHelpers, ReduxHelpers, NotyHelpers, StorageHelpers};

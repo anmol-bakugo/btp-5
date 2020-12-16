@@ -24,7 +24,7 @@ class ApiCommittee {
 
     getCommitteeById = id => db.get( 'committee' ).find( { id } ).value();
 
-    getAllCommittee = () => db.get( 'committee' ).filter( { isTrash: false } ).sortBy( 'title' ).value();
+    getAllCommittees = () => db.get( 'committee' ).filter( { isTrash: false } ).sortBy( 'title' ).value();
 
     getAllCommitteesInTrash = () => db.get( 'committee' ).filter( { isTrash: true } ).value();
 
