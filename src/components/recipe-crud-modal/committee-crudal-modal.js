@@ -226,8 +226,8 @@ class CommitteeCrudModalNotExtended extends React.Component {
             </form>
         )
         
-        if(this.state.formValues.no_attendees != 'undefined'){
-            for (let i = 1; i < this.state.formValues.no_attendees; i++) {
+        if(this.state.formValues.servings > 1){
+            for (let i = 1; i < this.state.formValues.servings; i++) {
                let attendee_number = 'attendee_'+ (i);
                 input_fields.push(
                     <form>
@@ -379,13 +379,13 @@ class CommitteeCrudModalNotExtended extends React.Component {
                                     onChangeText={difficultylevel => this.setFormValues({ difficultylevel })}
                                 /> */}
                                 <NumberField
-                                    name='no_attendees'
+                                    name='servings'
                                     label={<span><SvgIcon name='servings'/> {t( 'Attendees' )}</span>}
                                     min={1}
                                     step={1}
-                                    value={formValues.no_attendees}
+                                    value={formValues.servings}
                                     errorNumber={errorValues.servings}
-                                    onChangeNumber={no_attendees => this.setFormValues({ no_attendees })}
+                                    onChangeNumber={servings => this.setFormValues({ servings })}
                                 />
                                 {/* <TextField
                                     name='date_of_meeting'
