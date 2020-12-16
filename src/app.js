@@ -5,9 +5,11 @@ import TopMenu from './components/topmenu';
 import Sidebar from './components/sidebar';
 import store from './redux/store';
 import RecipeArea from './components/recipe-area';
+import CommitteeArea from './components/recipe-area/committee-area';
 import {StorageHelpers} from './core/helpers';
 
 import './components/common.scss';
+import committeeArea from './components/recipe-area/committee-area';
 
 class App extends Component {
     constructor( props ) {

@@ -11,7 +11,8 @@ import SvgIcon from '../svgicon';
 import {SET_SEARCH_QUERY} from '../../redux/actions/searchActions';
 import CommitteeCrudModal from '../recipe-crud-modal/committee-crudal-modal';
 import './style.scss';
-import committeeCrudalModal from '../recipe-crud-modal/committee-crudal-modal';
+import ApiCommittee from '../../core/api-committee';
+import { isUndefined } from 'lodash';
 
 const Mousetrap = require( 'mousetrap' );
 
@@ -19,7 +20,8 @@ class SidebarNotExtended extends React.Component {
     state = {
         recipeModalVisible: false,
         committeeModalVisible:false,
-        editCommitteeModalVisible:false
+        id:undefined,
+        committees:new ApiCommittee().getAllCommittees()
     };
 
     componentDidMount() {
@@ -64,12 +66,10 @@ class SidebarNotExtended extends React.Component {
         setQuery( '' );
     };
 
-    
-
     render() {
         const { t, tags, categories, selectedMenu, query } = this.props;
         const { recipeModalVisible } = this.state;
-        const {committeeModalVisible} = this.state;
+        const {committeeModalVisible,id} = this.state;
 
         return (
             <div className='comp_sidebar'>
@@ -81,8 +81,10 @@ class SidebarNotExtended extends React.Component {
 
                 <CommitteeCrudModal
                     show={committeeModalVisible}
-                    onClose={() => this.setState({ committeeModalVisible: false })}
+                    id = {id}
+                    onClose={() => this.setState({ committeeModalVisible: false,id:undefined })}
                 />
+
 
 
 
@@ -94,7 +96,7 @@ class SidebarNotExtended extends React.Component {
                         <div className='text'>{ t( 'New Meeting' ) }</div>
                         <div className='plus'>+</div>
                     </div>
-                    <div onClick={() => this.setState({ committeeModalVisible: true })}
+                    <div onClick={() => this.setState({ committeeModalVisible: true,id:undefined })}
                          className='new-recipe-container'>
                         <div className='text'>{ t( 'New Committee' ) }</div>
                         <div className='plus'>+</div>
@@ -197,6 +199,40 @@ class SidebarNotExtended extends React.Component {
 
                                                 return (
                                                     <li key={index} onClick={() => this.setSelectedMenu( value, 'category' )}
+                                                        className={containerClassName}>
+                                                        <div className='icon-container'>
+                                                            <SvgIcon name={'servings'}/>
+                                                        </div>
+                                                        <div className='others-container'>
+                                                            <div className='text-container'>{value.charAt( 0 ).toUpperCase() + value.slice( 1 )}</div>
+                                                        </div>
+                                                    </li>
+                                                );
+                                            })
+                                        }
+                                    </ul>
+                                )
+                        }
+                    </div>
+                </div>
+                <input type='checkbox' className='accordion__checkbox' id='accordion-categories1' />
+                <label className='sidebar-title accordion__heading' htmlFor='accordion-categories1'>{ t( 'Edit Comittees' ) }</label>
+                <div className='categories-wrapper accordion'>
+                    <div className='categories-container accordion__content'>
+                        {
+                            0 === this.state.committees.length ?
+                                <div className='no-item-text'>{ t( 'There isn\'t any categorized comittee yet' ) }</div>
+                                : (
+                                    <ul className='menu-list'>
+                                        {
+                                            this.state.committees.map( ( value, index ) => {
+                                                let containerClassName = 'menu-list-item';
+                                                if ( value === selectedMenu.slug ) {
+                                                    containerClassName += ' active';
+                                                }
+
+                                                return (
+                                                    <li key={index} onClick={() => this.setState( {id:new ApiCommittee().getCommitteeByTitle(value).id, committeeModalVisible:true })}
                                                         className={containerClassName}>
                                                         <div className='icon-container'>
                                                             <SvgIcon name={'servings'}/>
