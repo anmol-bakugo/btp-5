@@ -33,7 +33,10 @@ class RecipeCrudModalNotExtended extends React.Component {
 		errorValues: {},
 		autoSuggest: [],
         isMouseInside: false,
-        onprint:0
+        onprint:0,
+        list:[],
+        servings:0
+
 	};
 
 	componentDidUpdate( prevProps, prevState, snapshot ) {
@@ -59,8 +62,13 @@ class RecipeCrudModalNotExtended extends React.Component {
 	};
 
     setFormValues = ( obj ) => {
-		const { formValues } = this.state;
-		this.setState( { formValues: { ...formValues, ...obj } } );
+		const { formValues,list } = this.state;
+        this.setState( { 
+            formValues: { ...formValues, ...obj },
+            
+        
+        
+        } );
 	};
 
     onClose = () => {
@@ -85,10 +93,10 @@ class RecipeCrudModalNotExtended extends React.Component {
 			isFormValid = false;
         }
         
-		if ( ! isTextValid( formValues.categories ) ) {
-			errorValues.categories = t( 'This field is required!' );
-			isFormValid = false;
-        }
+		// if ( ! isTextValid( formValues.categories ) ) {
+		// 	errorValues.categories = t( 'This field is required!' );
+		// 	isFormValid = false;
+        // }
 
 
 		if ( undefined === formValues.ingredients || '' === formValues.ingredients ) {
@@ -210,40 +218,45 @@ class RecipeCrudModalNotExtended extends React.Component {
     //     console.log( 'click' );
     // };
 
-    attendees_details = () => {
+
+    
+    
+    addItem(item) {
+        this.setState(state => ({
+          list: [...state.list, item]
+        }));
+      }
+    attendees_details = (categories) => {
         
         // console.log(typeof(this.formValues)+'cool');
-        const input_fields = []
+        const {formValues,list} = this.state;
 
-        input_fields.push(
-            <form >
-                <input
-                    type='text'
-                    placeholder='Enter name of attendee_0'
-                    style={{backgroundColor:'#30404d' , color:"white"}}
-                    value = { this.state.formValues.attendee_0}
-                    onChange={(event)=>{ this.setFormValues({'attendee_0':event.target.value})} }
-                />
-            </form>
-        )
+        const input_fields = []
+        if(1)
+        {
+                for(let i=0;i<list.length;i++)
+                {input_fields.push(
+                            <p style={{backgroundColor:'#30404d' , color:"white"}}>{list[i]}</p>)}
+            
+            
+            // if(this.state.formValues.categories!='undefined'&&list.servings>0){
+            //     for (let i = 0; i < list.servings; i++) {
+            //     let attendee_number = 'attendee_'+ (i);
+            //         input_fields.push(
+            //             <form>
+            //                 <input
+            //                     type='text'
+            //                     placeholder = {list.attendee_number}
+            //                     style={{backgroundColor:'#30404d' , color:"white"}}
+            //                     value = {list.attendee_number}
+            //                     // onChange={(event)=>{this.setFormValues({ [attendee_number]:event.target.value})}}
+            //                 />
+            //             </form>
+            //         )
+            //     }
         
-        if(this.state.formValues.no_attendees != 'undefined'){
-            for (let i = 1; i < this.state.formValues.no_attendees; i++) {
-               let attendee_number = 'attendee_'+ (i);
-                input_fields.push(
-                    <form>
-                        <input
-                            type='text'
-                            placeholder = {attendee_number}
-                            style={{backgroundColor:'#30404d' , color:"white"}}
-                            value = {this.state.formValues[attendee_number]}
-                            onChange={(event)=>{this.setFormValues({ [attendee_number]:event.target.value})}}
-                        />
-                    </form>
-                )
-            }
-    
-        }
+            // }
+    }
 
         return( 
             <div className='tech-three'>
@@ -328,9 +341,9 @@ class RecipeCrudModalNotExtended extends React.Component {
             }
         })
     }
-
+    
     render() {
-        const { formValues, errorValues, autoSuggest } = this.state;
+        const { formValues, errorValues, autoSuggest,list} = this.state;
         const { t, id, show, committee_list } = this.props;
 		const picsDirectory = StorageHelpers.preference.get( 'storagePath' ) + '/medias';
 		if ( ! fs.existsSync( picsDirectory ) ) {
@@ -347,11 +360,13 @@ class RecipeCrudModalNotExtended extends React.Component {
         //     t( 'difficult' )
         // ];
         // const categories = committee_list;
+        
         const categories = CommitteeHelpers.getCommittees('menu/all_recipes');
         //const categories = categories_l.title;
 
         
         return (
+            
             <div className='comp_recipe-crud-modal'>
                 <Modal
                     show={show}
@@ -382,7 +397,7 @@ class RecipeCrudModalNotExtended extends React.Component {
                                     errorText={errorValues.difficultylevel}
                                     onChangeText={difficultylevel => this.setFormValues({ difficultylevel })}
                                 /> */}
-                                <NumberField
+                                {/* <NumberField
                                     name='no_attendees'
                                     label={<span><SvgIcon name='servings'/> {t( 'Attendees' )}</span>}
                                     min={1}
@@ -390,7 +405,7 @@ class RecipeCrudModalNotExtended extends React.Component {
                                     value={formValues.no_attendees}
                                     errorNumber={errorValues.servings}
                                     onChangeNumber={no_attendees => this.setFormValues({ no_attendees })}
-                                />
+                                /> */}
                                 <TextField
                                     name='date_of_meeting'
                                     label={<span><SvgIcon name='clock'/> {t( 'Date of Meeting' )}</span>}
@@ -418,15 +433,37 @@ class RecipeCrudModalNotExtended extends React.Component {
                                     options={categories}
 									placeholder={''}
                                     errorText={errorValues.categories}
-                                    onChangeText={categories => this.setFormValues({ categories })}
+                                    onChangeText={categories => {this.setFormValues({ categories })
+                                                
+                                                this.setState({list:[]})
+                                                //this.attendees_details(categories);          
+                                                var slug = 'menu/'+categories;                                          
+                                                //var temp = CommitteeHelpers.getCommittees(slug)
+                                                var temp = new ApiCommittee().getCommitteeByTitle(categories)
+                                                //this.addServings(temp.attendee_0);
+                                                //this.setState({list:temp.attendee_0})
+                                                for(let i=0;i<temp.servings;i++)
+                                                {
+                                                    let attendee_number = 'attendee_'+(i)
+                                                    this.addItem(temp[attendee_number]);
+                                                }    
+                                                
+                                                
+                                                
+                                               // this.setState({list:temp.servings})
+                                               // k = k+temp.attendee_0+temp.attendee_1
+                                                
+                                    }}
+                                    // onChangeText={this.attendees_details(categories)}
+
                                 />
-                                <TextField
+                                {/* <TextField
                                     name='categories'
                                     label={<span><SvgIcon name='clock'/> {t( 'dropdowm or add new Committee' )}</span>}
                                     value={formValues.categories}
                                     errorText={errorValues.categories}
                                     onChangeText={categories => this.setFormValues({ categories })}
-                                />
+                                /> */}
                                 {/* <div className='comp_fe_choice-field'>
 									<div className='form-group rating'>
 										<label className='form-label'>

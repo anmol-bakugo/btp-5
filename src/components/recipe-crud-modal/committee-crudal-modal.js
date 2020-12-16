@@ -28,11 +28,12 @@ const dialog = remote.dialog;
 
 class CommitteeCrudModalNotExtended extends React.Component {
     state = {
-		formValues: {},
+		formValues: {servings:1},
 		errorValues: {},
 		autoSuggest: [],
         isMouseInside: false,
-        onprint:0
+        onprint:0,
+
 	};
 
 	componentDidUpdate( prevProps, prevState, snapshot ) {
@@ -71,6 +72,7 @@ class CommitteeCrudModalNotExtended extends React.Component {
     };
 
     onSubmit = () => {
+        
         const { formValues } = this.state;
 		const { t, id } = this.props;
 		const feather = require( 'feather-icons' );
@@ -83,6 +85,7 @@ class CommitteeCrudModalNotExtended extends React.Component {
 			errorValues.title = t( 'This field is required!' );
 			isFormValid = false;
         }
+        
         
 		// if ( ! isTextValid( formValues.categories ) ) {
 		// 	errorValues.categories = t( 'This field is required!' );
@@ -123,12 +126,12 @@ class CommitteeCrudModalNotExtended extends React.Component {
 		// 	formValues.ingredients = formValues.ingredients.replace( /\d+/g, k => Number( k ).toFixed( 0 ) );
 		// }
 
-		// if ( ( formValues.servings > 1 ) && isNaN( formValues.servings ) ) {
-		// 	errorValues.servings = t( 'Not a valid number' );
-		// 	isFormValid = false;
-		// } else if ( '' === formValues.servings || 'undefined' === formValues.servings || isNaN( formValues.servings ) ) {
-		// 	formValues.servings = 1;
-		// }
+		if ( ( formValues.servings > 1 ) && isNaN( formValues.servings ) ) {
+			errorValues.servings = t( 'Not a valid number' );
+			isFormValid = false;
+		} else if ( '' === formValues.servings || 'undefined' === formValues.servings || isNaN( formValues.servings ) ) {
+			formValues.servings = 1;
+		}
 
 		// if ( undefined === formValues.sourceurl || '' === formValues.sourceurl ) {
 		// } else {
@@ -136,8 +139,8 @@ class CommitteeCrudModalNotExtended extends React.Component {
 		// 		errorValues.sourceurl = t( 'Non-valid URL' );
 		// 		isFormValid = false;
 		// 	}
-		// }
-
+        // }
+        
         if ( isFormValid ) {
             let dataToDb = { ...formValues };
             //dataToDb.tags = dataToDb.tags || '';
@@ -162,7 +165,7 @@ class CommitteeCrudModalNotExtended extends React.Component {
 
         }
 
-        this.setState({ errorValues });
+        this.setState({ errorValues});
     };
 
     _footer = () => {
@@ -214,20 +217,22 @@ class CommitteeCrudModalNotExtended extends React.Component {
         // console.log(typeof(this.formValues)+'cool');
         const input_fields = []
 
-        input_fields.push(
-            <form >
-                <input
-                    type='text'
-                    placeholder='Enter name of attendee_0'
-                    style={{backgroundColor:'#30404d' , color:"white"}}
-                    value = { this.state.formValues.attendee_0}
-                    onChange={(event)=>{ this.setFormValues({'attendee_0':event.target.value})} }
-                />
-            </form>
-        )
-        
-        if(this.state.formValues.servings > 1){
-            for (let i = 1; i < this.state.formValues.servings; i++) {
+        // input_fields.push(
+        //     // <form >
+        //     //     <input
+        //     //         type='text'
+        //     //         placeholder='Enter name of attendee_0'
+        //     //         style={{backgroundColor:'#30404d' , color:"white"}}
+        //     //         value = { this.state.formValues.attendee_0}
+        //     //         onChange={(event)=>{ this.setFormValues({'attendee_0':event.target.value})} }
+        //     //     />
+        //     // </form>
+        // )
+        var all_attendees = "";
+        //const {formValues} = this.state;
+        if(this.state.formValues.servings > 0){
+            
+            for (let i = 0; i < this.state.formValues.servings; i++) {
                let attendee_number = 'attendee_'+ (i);
                 input_fields.push(
                     <form>
@@ -240,7 +245,10 @@ class CommitteeCrudModalNotExtended extends React.Component {
                         />
                     </form>
                 )
-            }
+                           }
+            //this.setFormValues({'all_attendees':all_attendees})
+
+            
     
         }
 
@@ -381,8 +389,8 @@ class CommitteeCrudModalNotExtended extends React.Component {
                                 <NumberField
                                     name='servings'
                                     label={<span><SvgIcon name='servings'/> {t( 'Attendees' )}</span>}
-                                    min={1}
-                                    step={1}
+                                    min={0}
+                                    step={0}
                                     value={formValues.servings}
                                     errorNumber={errorValues.servings}
                                     onChangeNumber={servings => this.setFormValues({ servings })}

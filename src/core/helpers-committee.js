@@ -93,6 +93,10 @@ const CommitteeHelpers = {
                 } else if ( 'trash' === slug ) {
                     result = new ApiCommittee().getAllCommitteesInTrash();
                 }
+                else
+                {
+                    result = new ApiCommittee().getCommitteeByTitle(slug);
+                }
             } else if ( 'search' === selectedMenu.type ) {
                 result = new ApiCommittee().queryCommittee( query.toLowerCase() );
             } else if ( 'tag' === selectedMenu.type ) {

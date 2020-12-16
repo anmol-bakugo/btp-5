@@ -11,6 +11,7 @@ import SvgIcon from '../svgicon';
 import {SET_SEARCH_QUERY} from '../../redux/actions/searchActions';
 import CommitteeCrudModal from '../recipe-crud-modal/committee-crudal-modal';
 import './style.scss';
+import committeeCrudalModal from '../recipe-crud-modal/committee-crudal-modal';
 
 const Mousetrap = require( 'mousetrap' );
 
@@ -18,6 +19,7 @@ class SidebarNotExtended extends React.Component {
     state = {
         recipeModalVisible: false,
         committeeModalVisible:false,
+        editCommitteeModalVisible:false
     };
 
     componentDidMount() {
@@ -61,6 +63,8 @@ class SidebarNotExtended extends React.Component {
         setRecipeList( selectedMenu );
         setQuery( '' );
     };
+
+    
 
     render() {
         const { t, tags, categories, selectedMenu, query } = this.props;
@@ -209,6 +213,11 @@ class SidebarNotExtended extends React.Component {
                         }
                     </div>
                 </div>
+
+                
+
+
+
             </div>
         );
     }

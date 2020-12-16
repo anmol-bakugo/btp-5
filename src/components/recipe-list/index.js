@@ -7,6 +7,7 @@ import SvgIcon from '../svgicon';
 import RecipeListItem from '../recipe-list-item';
 import RecipeTable from '../recipe-table';
 import './style.scss';
+import ApiCommittee from '../../core/api-committee';
 
 class RecipeListNotExtended extends React.Component {
 	sortTable = n => {
