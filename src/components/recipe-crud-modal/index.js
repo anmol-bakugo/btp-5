@@ -10,10 +10,12 @@ import fs from 'fs';
 
 import Modal from '../modal';
 import Api from '../../core/api';
+import ApiCommittee from '../../core/api-committee'
 import { ChoiceField, NumberField, TextareaField, TextField, TagsField, MarkdownField, UrlField} from '../form-elements';
 import {isTextValid} from '../../core/utils';
 import SvgIcon from '../svgicon';
 import { NotyHelpers, ReduxHelpers, TagHelpers, StorageHelpers } from '../../core/helpers';
+import { CommitteeHelpers } from '../../core/helpers-committee';
 import '../i18n';
 
 import './style.scss';
@@ -344,7 +346,10 @@ class RecipeCrudModalNotExtended extends React.Component {
         //     t( 'medium' ),
         //     t( 'difficult' )
         // ];
-        const categories = committee_list;
+        // const categories = committee_list;
+        const categories = CommitteeHelpers.getCommittees('menu/all_recipes');
+        //const categories = categories_l.title;
+
         
         return (
             <div className='comp_recipe-crud-modal'>

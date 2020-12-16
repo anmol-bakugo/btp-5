@@ -74,6 +74,7 @@ const CommitteeHelpers = {
 
         return text;
     },
+    
 
     getCommittees: ( selectedMenu, query ) => {
         let result = [];
