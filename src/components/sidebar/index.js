@@ -6,17 +6,18 @@ import hoistStatics from 'hoist-non-react-statics';
 
 import {MainMenus, SearchResult} from '../../core/constants';
 import {ReduxHelpers} from '../../core/helpers';
-import RecipeCrudModal from '../recipe-crud-modal';
+import RecipeCrudModal from '../recipe-crud-modal/';
 import SvgIcon from '../svgicon';
 import {SET_SEARCH_QUERY} from '../../redux/actions/searchActions';
-
+import CommitteeCrudModal from '../recipe-crud-modal/committee-crudal-modal';
 import './style.scss';
 
 const Mousetrap = require( 'mousetrap' );
 
 class SidebarNotExtended extends React.Component {
     state = {
-        recipeModalVisible: false
+        recipeModalVisible: false,
+        committeeModalVisible:false,
     };
 
     componentDidMount() {
@@ -64,6 +65,7 @@ class SidebarNotExtended extends React.Component {
     render() {
         const { t, tags, categories, selectedMenu, query } = this.props;
         const { recipeModalVisible } = this.state;
+        const {committeeModalVisible} = this.state;
 
         return (
             <div className='comp_sidebar'>
@@ -73,10 +75,24 @@ class SidebarNotExtended extends React.Component {
                     onClose={() => this.setState({ recipeModalVisible: false })}
                 />
 
+                <CommitteeCrudModal
+                    show={committeeModalVisible}
+                    onClose={() => this.setState({ committeeModalVisible: false })}
+                />
+
+
+
+                
+
                 <div className='header'>
                     <div onClick={() => this.setState({ recipeModalVisible: true })}
                          className='new-recipe-container'>
                         <div className='text'>{ t( 'New Meeting' ) }</div>
+                        <div className='plus'>+</div>
+                    </div>
+                    <div onClick={() => this.setState({ committeeModalVisible: true })}
+                         className='new-recipe-container'>
+                        <div className='text'>{ t( 'New Committee' ) }</div>
                         <div className='plus'>+</div>
                     </div>
 
