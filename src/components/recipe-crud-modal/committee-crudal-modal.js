@@ -7,6 +7,7 @@ import hoistStatics from 'hoist-non-react-statics';
 //import StarRatingComponent from 'react-star-rating-controlled-component';
 //import ImageUploader from 'react-images-upload';
 import fs from 'fs';
+import './style-committee.scss';
 
 import Modal from '../modal';
 import Api from '../../core/api';
@@ -33,6 +34,7 @@ class CommitteeCrudModalNotExtended extends React.Component {
 		autoSuggest: [],
         isMouseInside: false,
         onprint:0,
+        membertype:['Chairman','Convenor','Member']
 
 	};
 
@@ -215,6 +217,7 @@ class CommitteeCrudModalNotExtended extends React.Component {
     attendees_details = () => {
         
         // console.log(typeof(this.formValues)+'cool');
+        const {membertype,formValues} = this.state;
         const input_fields = []
 
         // input_fields.push(
@@ -234,6 +237,7 @@ class CommitteeCrudModalNotExtended extends React.Component {
             
             for (let i = 0; i < this.state.formValues.servings; i++) {
                let attendee_number = 'attendee_'+ (i);
+               let member_number = 'member_'+(i);
                 input_fields.push(
                     <form>
                         <input
@@ -243,6 +247,19 @@ class CommitteeCrudModalNotExtended extends React.Component {
                             value = {this.state.formValues[attendee_number]}
                             onChange={(event)=>{this.setFormValues({ [attendee_number]:event.target.value})}}
                         />
+
+                            <ChoiceField
+                                    name='Memberbertype'
+                                    label={ <span><SvgIcon name='meal'/> { ( 'Select from ' ) }</span> }
+                                    id={formValues[member_number]}
+                                    value={'undefined' !== typeof formValues[member_number] ? formValues[member_number] : ''}
+                                    options={membertype}
+									placeholder={''}
+                                    // errorText={errorValues.categories}
+                                    onChangeText={membertype => {this.setFormValues({ [member_number]:membertype })}}
+                                                
+
+                                />
                     </form>
                 )
                            }
