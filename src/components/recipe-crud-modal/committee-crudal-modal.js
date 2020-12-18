@@ -29,7 +29,7 @@ const dialog = remote.dialog;
 
 class CommitteeCrudModalNotExtended extends React.Component {
     state = {
-		formValues: {servings:1},
+		formValues: {servings:1,counter:0},
 		errorValues: {},
 		autoSuggest: [],
         isMouseInside: false,
@@ -40,7 +40,7 @@ class CommitteeCrudModalNotExtended extends React.Component {
 
 	componentDidUpdate( prevProps, prevState, snapshot ) {
 		const { id, show } = this.props;
-
+        
 		if ( show && id && prevProps.show !== show ) {
 			const formValues = new ApiCommittee().getCommitteeById( id );
 			this.setState( { formValues } );
@@ -74,9 +74,11 @@ class CommitteeCrudModalNotExtended extends React.Component {
     };
 
     onSubmit = () => {
+        const { t, id } = this.props;
+        
         
         const { formValues } = this.state;
-		const { t, id } = this.props;
+		
 		const feather = require( 'feather-icons' );
 		let isFormValid = true;
 		let errorValues = {};

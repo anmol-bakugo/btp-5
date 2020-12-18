@@ -46,7 +46,17 @@ class RecipeCrudModalNotExtended extends React.Component {
 
 		if ( show && id && prevProps.show !== show ) {
 			const formValues = new Api().getRecipeById( id );
-			this.setState( { formValues } );
+            this.setState( { formValues } );
+            
+            const temp = new Api().getRecipeById(id);
+            const temp_committee = new ApiCommittee().getCommitteeByTitle(temp.categories)
+            if(temp.id!=undefined)
+            {for(let i=0;i<temp_committee.servings;i++)
+            {
+                let attendee_number = 'attendee_'+(i);
+                let member_number = 'member_'+(i);
+                this.addItem(temp_committee[attendee_number],temp_committee[member_number]);
+            }}
 		}
 
 		if ( show && prevProps.show !== show ) {
@@ -80,20 +90,22 @@ class RecipeCrudModalNotExtended extends React.Component {
 		setRecipeList( selectedMenu );
 		onClose && onClose();
     };
-
     onSubmit = () => {
-        const { formValues } = this.state;
+        
+        
 		const { t, id } = this.props;
-		const feather = require( 'feather-icons' );
+        
+        const { formValues } = this.state;
+        const feather = require( 'feather-icons' );
 		let isFormValid = true;
 		let errorValues = {};
 
 		let regex = /(http[s]?:\/\/)?[^\s(["<,>]*\.[^\s[",><]*/igm;
 
-		if ( ! isTextValid( formValues.title ) ) {
-			errorValues.title = t( 'This field is required!' );
-			isFormValid = false;
-        }
+		// if ( ! isTextValid( formValues.title ) ) {
+		// 	errorValues.title = t( 'This field is required!' );
+		// 	isFormValid = false;
+        // }
         
 		// if ( ! isTextValid( formValues.categories ) ) {
 		// 	errorValues.categories = t( 'This field is required!' );
@@ -159,6 +171,7 @@ class RecipeCrudModalNotExtended extends React.Component {
 
             if ( undefined === id ) {
                 new Api().addNewRecipeItem( dataToDb );
+               // new ApiCommittee().updateCommitteeCounter(formValues.categories,formValues.counter);
             } else {
                 new Api().updateRecipeItem( dataToDb );
             }
@@ -198,12 +211,12 @@ class RecipeCrudModalNotExtended extends React.Component {
                 {/* <span className='crud-calculator' onClick={this.handleUnitConverter}>
                     <SvgIcon name='calculator'/>
                 </span> */}
-                <span onClick={this.OnLatex}>
+                {/* <span onClick={this.OnLatex}>
                     <SvgIcon name='print'/>
                 </span>
                 <span onClick={this.OnPrint}>
                     <SvgIcon name='calculator'/>
-                </span>
+                </span> */}
                 <span onClick={this.onSubmit}>
                     <SvgIcon name='save'/>
                 </span>
@@ -445,8 +458,9 @@ class RecipeCrudModalNotExtended extends React.Component {
                             <TextField
                                 name='title'
                                 label={t( 'Title*' )}
-                                value={formValues.title}
+                                value={'Meeting'+formValues.counter}
                                 errorText={errorValues.title}
+                                readOnly={'readOnly'}
                                 onChangeText={title => this.setFormValues({ title })}
                             />
 
@@ -500,7 +514,7 @@ class RecipeCrudModalNotExtended extends React.Component {
                                     options={categories}
 									placeholder={''}
                                     errorText={errorValues.categories}
-                                    onChangeText={categories => {this.setFormValues({ categories })
+                                    onChangeText={categories => {
                                                 
                                                 this.setState({list:[],list2:[]});
                                                 //this.attendees_details(categories);          
@@ -519,8 +533,11 @@ class RecipeCrudModalNotExtended extends React.Component {
                                                             let member_number = 'member_'+(i)
                                                             this.addItem(temp[attendee_number],temp[member_number]);
                                                         }
+                                                        var counter = new Api().getAllCategories_counter(categories)
+                                                        this.setFormValues({categories,'counter':counter.length+1})
                                                     }
-                                                }    
+                                                }
+
                                                 
                                                 
                                                 

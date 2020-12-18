@@ -24,6 +24,7 @@ class Api {
     getRecipeById = id => db.get( 'recipes' ).find( { id } ).value();
 
     getAllRecipes = () => db.get( 'recipes' ).filter( { isTrash: false } ).sortBy( 'title' ).value();
+    getAllCategories_counter = (kickass)=>db.get( 'recipes' ).filter( { categories: kickass } ).map('counter').value()
 
     getAllRecipesInTrash = () => db.get( 'recipes' ).filter( { isTrash: true } ).value();
 

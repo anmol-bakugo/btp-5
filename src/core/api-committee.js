@@ -19,7 +19,7 @@ class ApiCommittee {
     addNewCommitteeItem = item => db.get( 'committee' ).push( item ).write();
 
     updateCommitteeItem = obj => db.get( 'committee' ).find( { id: obj.id } ).assign( obj ).write();
-
+    updateCommitteeCounter = (kickass,counter)=>db.get( 'committee' ).find( {title:kickass } ).assign({counter:counter}).write();
     deleteCommitteeById = id => db.get( 'committee' ).remove( { id } ).write();
 
     getCommitteeById = id => db.get( 'committee' ).find( { id } ).value();
