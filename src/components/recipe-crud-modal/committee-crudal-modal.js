@@ -389,6 +389,7 @@ class CommitteeCrudModalNotExtended extends React.Component {
                                 label={t( 'Title*' )}
                                 value={formValues.title}
                                 errorText={errorValues.title}
+                                readOnly={undefined !== id ?'readonly':''}
                                 onChangeText={title => this.setFormValues({ title })}
                             />
 
