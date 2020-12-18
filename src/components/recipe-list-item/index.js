@@ -165,7 +165,7 @@ class RecipeListItemNotExtended extends Component {
                             <img src={ StorageHelpers.readImg( item.picName ) } alt=''/>
                         </div> */}
                         {/* Style here for recepie-list-item box */}  
-                        <div className='title'>{item.title}</div>
+                        <div className='title'>{'Meeting'+item.counter}</div>
                         <div className='title'style={{color:"black",'text-transform':'uppercase'}}>{item.categories}</div>
                         <div className='title'style={{color:"yellow",'text-transform':'uppercase'}}>{item.date_of_meeting}</div>                        
                         <div className='servings'>{item.servings}</div>
