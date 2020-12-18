@@ -36,7 +36,8 @@ class RecipeCrudModalNotExtended extends React.Component {
         onprint:0,
         list:[],
         servings:0,
-        list2:[]
+        list2:[],
+        absenteetype:['Present','Absent']
 
 	};
 
@@ -231,7 +232,7 @@ class RecipeCrudModalNotExtended extends React.Component {
     attendees_details = (categories) => {
         
         // console.log(typeof(this.formValues)+'cool');
-        const {formValues,list,list2} = this.state;
+        const {formValues,list,list2,absenteetype} = this.state;
 
         const input_fields = []
         if(1)
@@ -240,7 +241,32 @@ class RecipeCrudModalNotExtended extends React.Component {
                                                     
                                                 
                 for(let i=0;i<list.length;i++)
-                {input_fields.push(<tr><td>{list[i]}</td><td>{list2[i]}</td></tr> )}
+                {
+                    let absentee_number = 'absentee_'+ (i);
+                    
+                    input_fields.push(<tr>
+                    <td>{list[i]}</td>
+                    <td>{list2[i]}</td>
+                    <td>
+                    <ChoiceField
+                        name='absenteetype'
+                        label={ <span> { ( 'Select from ' ) }</span> }
+                        id={formValues[absentee_number]}
+                        value={'undefined' !== typeof formValues[absentee_number] ? formValues[absentee_number] : ''}
+                        options={absenteetype}
+                        placeholder={''}
+                        // errorText={errorValues.categories}
+                        onChangeText={absenteetype => {this.setFormValues({ [absentee_number]:absenteetype })}}
+                                    
+
+                        />
+
+
+
+
+                    </td>
+                        
+                            </tr> )}
             
             
             // if(this.state.formValues.categories!='undefined'&&list.servings>0){
