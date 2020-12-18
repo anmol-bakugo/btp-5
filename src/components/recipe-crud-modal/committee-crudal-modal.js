@@ -250,7 +250,7 @@ class CommitteeCrudModalNotExtended extends React.Component {
 
                             <ChoiceField
                                     name='Memberbertype'
-                                    label={ <span><SvgIcon name='meal'/> { ( 'Select from ' ) }</span> }
+                                    label={ <span> { ( 'Select from ' ) }</span> }
                                     id={formValues[member_number]}
                                     value={'undefined' !== typeof formValues[member_number] ? formValues[member_number] : ''}
                                     options={membertype}

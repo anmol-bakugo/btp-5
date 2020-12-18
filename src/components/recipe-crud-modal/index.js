@@ -269,7 +269,7 @@ class RecipeCrudModalNotExtended extends React.Component {
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th>Points</th>
+                                        <th>MemberType</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -468,7 +468,7 @@ class RecipeCrudModalNotExtended extends React.Component {
                             <div className='tech-two'>
                                 <ChoiceField
                                     name='categories'
-                                    label={ <span><SvgIcon name='meal'/> { t( 'Select from ' ) }</span> }
+                                    label={ <span> { t( 'Select from ' ) }</span> }
                                     id={formValues.categories}
                                     value={'undefined' !== typeof formValues.categories ? formValues.categories : ''}
                                     options={categories}
@@ -590,7 +590,7 @@ class RecipeCrudModalNotExtended extends React.Component {
                     <div className='textareas-wrapper'>
                         <TextareaField
                             name='ingredients'
-                            label={<span><SvgIcon name='ingredients'/> {t( 'Minutes of Meeting' )}</span>}
+                            label={<span> {t( 'Minutes of Meeting' )}</span>}
                             value={formValues.ingredients}
                             errorText={errorValues.ingredients}
                             onChangeText={ingredients => this.setFormValues({ ingredients })}
