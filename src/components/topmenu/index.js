@@ -216,7 +216,7 @@ class TopMenuNotExtended extends Component {
 				<div className="center-side"></div>
 				<div className="right-side">
 					<SearchField
-						placeholder={t('Search recipe...')}
+						placeholder={t('Search Meeting...')}
 						value={query}
 						onChangeText={(text) => this.onChangeText(text)}
 						onClearClick={() => this.onChangeText('')}

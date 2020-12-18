@@ -211,12 +211,12 @@ class RecipeCrudModalNotExtended extends React.Component {
                 {/* <span className='crud-calculator' onClick={this.handleUnitConverter}>
                     <SvgIcon name='calculator'/>
                 </span> */}
-                {/* <span onClick={this.OnLatex}>
+                <span onClick={this.OnLatex}>
                     <SvgIcon name='print'/>
                 </span>
                 <span onClick={this.OnPrint}>
                     <SvgIcon name='calculator'/>
-                </span> */}
+                </span>
                 <span onClick={this.onSubmit}>
                     <SvgIcon name='save'/>
                 </span>

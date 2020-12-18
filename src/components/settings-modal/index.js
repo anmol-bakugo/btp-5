@@ -162,7 +162,7 @@ class SettingsModalNotExtended extends React.Component {
 						<li className={ 'themes' === selectedTab ? 'active' : ''} onClick={() => this.onClickTabHeader( 'themes' )}>
 							<span>{ t( 'Theme' ) }</span>
 						</li>
-						<li className={ 'language' === selectedTab ? 'active' : ''} onClick={() => this.onClickTabHeader( 'language' )}>
+						{/* <li className={ 'language' === selectedTab ? 'active' : ''} onClick={() => this.onClickTabHeader( 'language' )}>
 							<span>{ t( 'Language' ) }</span>
 						</li>
 						<li className={ 'update' === selectedTab ? 'active' : ''} onClick={() => this.onClickTabHeader( 'update' )}>
@@ -173,7 +173,7 @@ class SettingsModalNotExtended extends React.Component {
 						</li>
 						<li className={ 'about' === selectedTab ? 'active' : ''} onClick={() => this.onClickTabHeader( 'about' )}>
 							<span>{ t( 'About' ) }</span>
-						</li>
+						</li> */}
 					</ul>
 				</div>
 				<div className='tabs-content-container'>

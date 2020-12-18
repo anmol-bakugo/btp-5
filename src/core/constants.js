@@ -18,12 +18,6 @@ const MainMenus = [
         type: 'menu'
     },
     {
-        slug: 'uncategorized',
-        icon: 'ghost',
-        name: 'Uncategorized',
-        type: 'menu'
-    },
-    {
         slug: 'trash',
         icon: 'trash',
         name: 'Trash',
