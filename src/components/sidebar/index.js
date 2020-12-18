@@ -73,17 +73,19 @@ class SidebarNotExtended extends React.Component {
 
         return (
             <div className='comp_sidebar'>
+                
+                <CommitteeCrudModal
+                    show={committeeModalVisible}
+                    id = {id}
+                    onClose={() => this.setState({ committeeModalVisible: false,id:undefined })}
+                />
                 <RecipeCrudModal
                     show={recipeModalVisible}
                     committee_list = {categories}
                     onClose={() => this.setState({ recipeModalVisible: false })}
                 />
 
-                <CommitteeCrudModal
-                    show={committeeModalVisible}
-                    id = {id}
-                    onClose={() => this.setState({ committeeModalVisible: false,id:undefined })}
-                />
+                
 
 
 
@@ -91,16 +93,19 @@ class SidebarNotExtended extends React.Component {
                 
 
                 <div className='header'>
-                    <div onClick={() => this.setState({ recipeModalVisible: true })}
-                         className='new-recipe-container'>
-                        <div className='text'>{ t( 'New Meeting' ) }</div>
-                        <div className='plus'>+</div>
-                    </div>
+                    
                     <div onClick={() => this.setState({ committeeModalVisible: true,id:undefined })}
                          className='new-recipe-container'>
                         <div className='text'>{ t( 'New Committee' ) }</div>
                         <div className='plus'>+</div>
                     </div>
+                    
+                    <div onClick={() => this.setState({ recipeModalVisible: true })}
+                         className='new-recipe-container'>
+                        <div className='text'>{ t( 'New Meeting' ) }</div>
+                        <div className='plus'>+</div>
+                    </div>
+                    
 
                     {
                         '' !== query ?
@@ -120,7 +125,7 @@ class SidebarNotExtended extends React.Component {
                             )
                             : null
                     }
-
+                    
                     <div className='main-menu-container'>
                         <div className='sidebar-title'>{ t( 'Main menu' ) }</div>
                         <ul className='menu-list'>
@@ -147,30 +152,28 @@ class SidebarNotExtended extends React.Component {
                         </ul>
                     </div>
                 </div>
-                <input type='checkbox' className='accordion__checkbox' id='accordion-tags' />
-                <label className='sidebar-title accordion__heading' htmlFor='accordion-tags'>{ t( 'Tags' ) }</label>
-                <div className='tags-wrapper accordion'>
-                    <div className='tags-container accordion__content'>
+                <input type='checkbox' className='accordion__checkbox' id='accordion-categories1' />
+                <label className='sidebar-title accordion__heading' htmlFor='accordion-categories1'>{ t( 'Edit Comittees' ) }</label>
+                <div className='categories-wrapper accordion'>
+                    <div className='categories-container accordion__content'>
                         {
-                            0 === tags.length ?
-                                <div className='no-item-text'>{ t( 'There isn\'t any tag yet' ) }</div>
+                            0 === this.state.committees.length ?
+                                <div className='no-item-text'>{ t( 'There isn\'t any categorized comittee yet' ) }</div>
                                 : (
                                     <ul className='menu-list'>
                                         {
-                                            tags.map( ( value, index ) => {
+                                            this.state.committees.map( ( value, index ) => {
                                                 let containerClassName = 'menu-list-item';
-                                                if ( value === selectedMenu.slug ) {
-                                                    containerClassName += ' active';
-                                                }
+                                                
 
                                                 return (
-                                                    <li key={index} onClick={() => this.setSelectedMenu( value, 'tag' )}
+                                                    <li key={index} onClick={() => this.setState( {id:new ApiCommittee().getCommitteeByTitle(value).id, committeeModalVisible:true })}
                                                         className={containerClassName}>
                                                         <div className='icon-container'>
-                                                            <SvgIcon name={'tag'}/>
+                                                            <SvgIcon name={'servings'}/>
                                                         </div>
                                                         <div className='others-container'>
-                                                            <div className='text-container'>{value}</div>
+                                                            <div className='text-container'>{value.charAt( 0 ).toUpperCase() + value.slice( 1 )}</div>
                                                         </div>
                                                     </li>
                                                 );
@@ -181,6 +184,7 @@ class SidebarNotExtended extends React.Component {
                         }
                     </div>
                 </div>
+                
                 <input type='checkbox' className='accordion__checkbox' id='accordion-categories' />
                 <label className='sidebar-title accordion__heading' htmlFor='accordion-categories'>{ t( 'Comittees' ) }</label>
                 <div className='categories-wrapper accordion'>
@@ -215,30 +219,30 @@ class SidebarNotExtended extends React.Component {
                         }
                     </div>
                 </div>
-                <input type='checkbox' className='accordion__checkbox' id='accordion-categories1' />
-                <label className='sidebar-title accordion__heading' htmlFor='accordion-categories1'>{ t( 'Edit Comittees' ) }</label>
-                <div className='categories-wrapper accordion'>
-                    <div className='categories-container accordion__content'>
+                <input type='checkbox' className='accordion__checkbox' id='accordion-tags' />
+                <label className='sidebar-title accordion__heading' htmlFor='accordion-tags'>{ t( 'Tags' ) }</label>
+                <div className='tags-wrapper accordion'>
+                    <div className='tags-container accordion__content'>
                         {
-                            0 === this.state.committees.length ?
-                                <div className='no-item-text'>{ t( 'There isn\'t any categorized comittee yet' ) }</div>
+                            0 === tags.length ?
+                                <div className='no-item-text'>{ t( 'There isn\'t any tag yet' ) }</div>
                                 : (
                                     <ul className='menu-list'>
                                         {
-                                            this.state.committees.map( ( value, index ) => {
+                                            tags.map( ( value, index ) => {
                                                 let containerClassName = 'menu-list-item';
                                                 if ( value === selectedMenu.slug ) {
                                                     containerClassName += ' active';
                                                 }
 
                                                 return (
-                                                    <li key={index} onClick={() => this.setState( {id:new ApiCommittee().getCommitteeByTitle(value).id, committeeModalVisible:true })}
+                                                    <li key={index} onClick={() => this.setSelectedMenu( value, 'tag' )}
                                                         className={containerClassName}>
                                                         <div className='icon-container'>
-                                                            <SvgIcon name={'servings'}/>
+                                                            <SvgIcon name={'tag'}/>
                                                         </div>
                                                         <div className='others-container'>
-                                                            <div className='text-container'>{value.charAt( 0 ).toUpperCase() + value.slice( 1 )}</div>
+                                                            <div className='text-container'>{value}</div>
                                                         </div>
                                                     </li>
                                                 );
