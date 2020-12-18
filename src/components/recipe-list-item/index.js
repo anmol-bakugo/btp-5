@@ -13,6 +13,7 @@ import {openConfirmDialog} from '../confirm-dialog';
 import RecipeGeneratorModal from '../recipe-generator-modal';
 
 import './style.scss';
+import ApiCommittee from '../../core/api-committee';
 
 class RecipeListItemNotExtended extends Component {
     state = {
@@ -143,6 +144,22 @@ class RecipeListItemNotExtended extends Component {
         const tags = this.getTags();
         const stars = this.stars();
         const favorite = this.favorite();
+        var list_p = []
+        var list2_p = []
+        if(item.id!=undefined)
+        {
+            const title = new Api().getRecipeById(item.id);
+            //const temp = new ApiCommittee().getCommitteeByTitle(title.title)
+
+            //for(let i=0;i<temp.servings;i++)
+            {
+                // let attendee_number = 'attendee_'+(i);
+                // let member_number = 'member_'+(i);
+                list_p.concat(title.title);
+                list2_p.concat(title.title);
+                
+            }
+        }
 
         return (
             <div className='comp_recipe-list-item'>
@@ -150,6 +167,8 @@ class RecipeListItemNotExtended extends Component {
                     id={item.id}
                     show={showCrudModal}
                     committee_list = {committee_list}
+                    list_p = {['kl']}
+                    list2_p = {['lop']}
                     onClose={ () => this.setState( { showCrudModal: false } ) }
                 />
 

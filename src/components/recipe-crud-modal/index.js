@@ -39,7 +39,25 @@ class RecipeCrudModalNotExtended extends React.Component {
         list2:[],
         absenteetype:['Present','Absent']
 
-	};
+    };
+    
+    componentWillReceiveProps = (props)=>{
+        if(props.id!=undefined)
+        {
+
+            if(this.state.formValues.categories!='undefined')
+{
+            const temp = new Api().getRecipeById(props.id);
+            const temp_committee = new ApiCommittee().getCommitteeByTitle(temp.categories)
+            for(let i=0;i<temp_committee['servings'];i++)
+            {
+                let attendee_number = 'attendee_'+(i);
+                let member_number = 'member_'+(i);
+                this.addItem(temp_committee[attendee_number],temp_committee[member_number]);
+            }
+        }
+    }  
+      }
 
 	componentDidUpdate( prevProps, prevState, snapshot ) {
 		const { id, show } = this.props;
@@ -374,7 +392,6 @@ class RecipeCrudModalNotExtended extends React.Component {
                 }
             }
         })
-
         ipcRenderer.on("latex-generated",(event,arg1,arg2,arg3)=>{
             const {formValues} = this.state;
             if(arg3===formValues.title){
@@ -388,9 +405,10 @@ class RecipeCrudModalNotExtended extends React.Component {
     }
     
     render() {
-        const { formValues, errorValues, autoSuggest,list} = this.state;
-        const { t, id, show, committee_list} = this.props;
-
+        const { formValues, errorValues, autoSuggest} = this.state;
+       
+        const { t, id, show, committee_list,list_p,list2_p} = this.props;
+        
         // if(undefined !== id)
         // {
             

@@ -322,6 +322,8 @@ class CommitteeCrudModalNotExtended extends React.Component {
         ipcRenderer.send("generate-latex",formValues); 
     }
 
+    
+
     componentDidMount(){
         // const onprint = this.state.onprint;
         const { t} = this.props;
